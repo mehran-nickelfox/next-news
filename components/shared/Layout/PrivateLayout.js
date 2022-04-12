@@ -25,9 +25,9 @@ const Layout = ({ title, description, keywords, children }) => {
       </Head>
       <div className="flex flex-col h-screen justify-between">
         <Header />
-        <video autoPlay loop muted playsInline>
+        {/* <video autoPlay loop muted playsInline>
           <source src="../../../public/waves.webm" type="video/mp4" />
-        </video>
+        </video> */}
         <div className="bg-current flex flex-col items-center">{children}</div>
         <Footer />
       </div>

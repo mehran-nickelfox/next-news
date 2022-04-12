@@ -3,23 +3,20 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { motion } from "framer-motion";
-import { newsAtom, fetchUrlAtom, authAtom } from "../../jotai/Atoms";
+import { newsAtom, authAtom } from "../../jotai/Atoms";
 import Card from "../../components/shared/Card";
 import Marker from "../../components/Marker/Marker";
 import { Suspense } from "react";
 import Loader from "../../components/shared/Loader";
-const News = () => {
+const News = ( {data}) => {
   const [news, setNews] = useAtom(newsAtom);
-  const [json] = useAtom(fetchUrlAtom);
   const [user] = useAtom(authAtom);
   const router = useRouter();
 
   useEffect(() => {
-    // if (!user) {
-    //   router.replace("/", "/");
-    // }
-    setNews(json.articles);
-  }, [json.articles, setNews]);
+    setNews(data.articles);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Suspense fallback={<Loader/>}>
@@ -86,4 +83,13 @@ const News = () => {
   );
 };
 
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(  `https://newsapi.org/v2/everything?q=bitcoin&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1`
+  )
+  const data = await res.json()
+
+  // Pass data to the page via props
+  return { props: { data } }
+}
 export default News;
