@@ -8,7 +8,7 @@ import ig from "../../public/images/ig.png";
 const Footer = () => {
   const [user] = useAtom(authAtom);
   return (
-    <div className="text-white z-50">
+    <div className="text-white z-20">
       <footer>
         <div className="p-8 w-full text-white bg-slate-700">
           <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
@@ -189,17 +189,21 @@ const Footer = () => {
               <h5 className="text-xl font-bold mb-6 sm:text-center xl:text-left">
                 Stay connected
               </h5>
-              <div className="flex sm:justify-center xl:justify-start">
+              <div className="flex sm:justify-center xl:justify-start ">
                 <Image
                   src={fb}
                   alt="fb"
-                  className="w-12 border border-2 border-gray-400 rounded-full text-center py-1 text-gray-600 hover:text-white hover:bg-blue-600 hover:border-blue-600"
+                  className="rounded-full hover:bg-white"
+                  width={50}
+                  height={50}
                 />
 
                 <Image
                   src={ig}
                   alt="ig"
-                  className="w-12 border border-2 border-gray-400 rounded-full text-center py-1 ml-2 text-gray-600 hover:text-white hover:bg-blue-400 hover:border-blue-400"
+                  width={50}
+                  height={50}
+                  className="rounded-full  hover:bg-white"
                 />
               </div>
             </div>
@@ -221,6 +225,9 @@ const Footer = () => {
               <h6 className="font-bold mb-2">Free Resources</h6>
               <p className="mb-4 text-sm">
                 Use our HTML blocks for <strong>FREE</strong>.<br />
+              </p>
+              <p className="mb-4 text-sm">
+               <strong>&copy; NickelFox Technologies</strong>.<br />
               </p>
             </div>
             {!user ? (

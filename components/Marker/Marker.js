@@ -25,7 +25,7 @@ const Marker = (props) => {
   };
   return (
     <div>
-      <button className="rounded m-4 p-0.25 bg-red-700">
+      <button className="rounded m-4 p-0.25 bg-red-700 hover:bg-white border-2 border-red-700 ">
         <Image src={marks} alt="bookmark" onClick={onBookMark} />
       </button>
     </div>

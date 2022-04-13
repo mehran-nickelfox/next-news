@@ -13,7 +13,9 @@ const Layout = ({ title, description, keywords, children }) => {
   const router = useRouter();
   React.useEffect(() => {
     if (!user) {
+      setTimeout(() => {
       router.replace("/auth", "/auth");
+      }, 2500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);

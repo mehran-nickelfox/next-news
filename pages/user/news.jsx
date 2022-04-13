@@ -3,6 +3,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { motion } from "framer-motion";
+import { getAuth } from "firebase/auth";
+
+import {toast} from 'react-toastify';
 import { newsAtom, authAtom } from "../../jotai/Atoms";
 import Card from "../../components/shared/Card";
 import Marker from "../../components/Marker/Marker";
@@ -12,16 +15,16 @@ const News = ({ data }) => {
   const [news, setNews] = useAtom(newsAtom);
   const [user] = useAtom(authAtom);
   const router = useRouter();
-
   useEffect(() => {
     setNews(data.articles);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   return (
     <Suspense fallback={<Loader />}>
       <div className=" flex flex-col items-center">
-        <div className="animate-bounce text-center absolute top-64">
+        <div className="animate-bounce text-center absolute top-96">
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 2 } }}
@@ -70,7 +73,7 @@ const News = ({ data }) => {
                   </p>
                 </div>
                 <div className="h-100 flex flex-col items-center justify-around">
-                  <button className="rounded m-4 p-0.25 bg-red-700 w-32 h-12">
+                  <button className="rounded m-4 p-0.25 bg-red-700 w-32 h-12 hover:bg-white hover:text-red-700 border-2 border-red-700 font-bold">
                     <a href={article.url}>Know More</a>
                   </button>
                   <Marker link={article} />

@@ -14,9 +14,9 @@ const Home = () => {
         exit={{ opacity: 0 }}
         className="text-center non-italic text-white font-bold w-full  mb-12 text-6xl"
       >
-        <h1 className="z-10">THE NAME YOU CAN NEWS</h1>
+        <h1 className="z-10">BRINGING YOU THE</h1>
         <br />
-        <h1 className="">UPON!</h1>
+        <h1 className="">NEWS!</h1>
       </motion.div>
       {!user && (
         <>

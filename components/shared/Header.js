@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useAtom } from "jotai";
+import {toast} from 'react-toastify';
 import {RESET} from 'jotai/utils'
 import { getAuth } from "firebase/auth";
 import { authAtom,storeUserAtom } from "../../jotai/Atoms";
@@ -14,13 +15,15 @@ const Header = () => {
   const auth = getAuth();
   const [, setSaveUser] = useAtom(storeUserAtom);
 
-
   const handleClick = () => {
     auth.signOut();
     setUser(false);
     removeSession("user");
     setSaveUser(RESET);
+    toast.success("Logged Out");
   };
+
+  
   return (
     <div className="z-10 fixed flex top-0 h-20 bg-slate-700 w-screen justify-between">
       <div className="flex items-center w-36 ml-2">

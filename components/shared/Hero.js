@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className=" sticky top-0 h-screen w-full">
+    <div className="-z-20 sticky top-0 h-screen w-full">
       <video
         autoPlay
         loop

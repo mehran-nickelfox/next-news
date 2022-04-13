@@ -39,14 +39,14 @@ const OAuth = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 2 } }}
       exit={{ opacity: 0 }}
-      className="text-center text-black w-full mb-12 p-4 text-6xl font-bold"
+      className="text-center text-white w-full mb-12 p-4 text-6xl font-bold"
     >
       <h3>Sign In Using Google:</h3>
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 2 } }}
         exit={{ opacity: 0 }}
-        className="rounded-full bg-slate-700 w-32 m-24 animate-bounce hover:bg-blue-700 transition-all ease-out duration-300 h-full"
+        className="rounded-full bg-slate-700 w-32 m-24 animate-bounce hover:bg-white transition-all ease-out duration-300 h-full"
         onClick={onGoogleClick}
       >
         <Image src={googleIcon} alt="Google" width={50} />
