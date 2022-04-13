@@ -4,6 +4,8 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../src/config/firebase.config";
 import marks from "../../public/images/bookmark.png";
 import Image from "next/image";
+import { toast } from "react-toastify";
+
 const Marker = (props) => {
   const { link } = props;
   const auth = getAuth();
@@ -16,6 +18,7 @@ const Marker = (props) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const docRef = addDoc(collection(db, "bookmarks"), newsData);
+      toast.success("Article Bookmarked");
     } catch (err) {
       console.log(err);
     }

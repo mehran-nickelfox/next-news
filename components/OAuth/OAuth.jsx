@@ -3,14 +3,14 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { setSession } from "../../HOC/withAuth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { motion } from "framer-motion";
-import { authAtom } from "../../jotai/Atoms";
+import { authAtom, storeUserAtom } from "../../jotai/Atoms";
 import { useAtom } from "jotai";
 import { db } from "../../src/config/firebase.config";
 import googleIcon from "../../public/images/googleIcon.svg";
 import Image from "next/image";
 const OAuth = () => {
   const [, setUser] = useAtom(authAtom);
-
+  const [, setSaveUser] = useAtom(storeUserAtom);
   const onGoogleClick = async () => {
     try {
       const auth = getAuth();
@@ -29,6 +29,7 @@ const OAuth = () => {
       }
       setUser(true);
       setSession("user", user.uid);
+      setSaveUser(user.uid);
     } catch (err) {
       console.log(err);
     }
@@ -45,10 +46,10 @@ const OAuth = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 2 } }}
         exit={{ opacity: 0 }}
-        className="w-12 mt-52 rounded-full bg-white animate-bounce p-4 "
+        className="rounded-full bg-slate-700 w-32 m-24 animate-bounce hover:bg-blue-700 transition-all ease-out duration-300 h-full"
         onClick={onGoogleClick}
       >
-        <Image src={googleIcon} alt="Google" />
+        <Image src={googleIcon} alt="Google" width={50} />
       </motion.button>
     </motion.div>
   );

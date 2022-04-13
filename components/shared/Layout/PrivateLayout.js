@@ -4,18 +4,19 @@ import Footer from "../Footer";
 import Header from "../Header";
 import { getSession } from "../../../HOC/withAuth";
 import { useRouter } from "next/router";
-import { authAtom} from '../../../jotai/Atoms'
+import { authAtom } from "../../../jotai/Atoms";
 import { useAtom } from "jotai";
+import Hero from "../Hero";
 const Layout = ({ title, description, keywords, children }) => {
- const session=getSession("user");
- const [user]=useAtom(authAtom);
- const router=useRouter();
- React.useEffect(() => {
-  if (!user) {
-    router.replace("/auth", "/auth");
-  }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [session])
+  const session = getSession("user");
+  const [user] = useAtom(authAtom);
+  const router = useRouter();
+  React.useEffect(() => {
+    if (!user) {
+      router.replace("/auth", "/auth");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
   return (
     <div>
       <Head>
@@ -25,11 +26,13 @@ const Layout = ({ title, description, keywords, children }) => {
       </Head>
       <div className="flex flex-col h-screen justify-between">
         <Header />
-        {/* <video autoPlay loop muted playsInline>
-          <source src="../../../public/waves.webm" type="video/mp4" />
-        </video> */}
-        <div className="bg-current flex flex-col items-center">{children}</div>
-        <Footer />
+        <div>
+          <div className="flex flex-col items-center">
+            <Hero />
+            {children}
+          </div>
+          <Footer />
+        </div>
       </div>
     </div>
   );

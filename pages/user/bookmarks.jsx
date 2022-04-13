@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import Image from "next/image";
 import { useAtom } from "jotai";
+import {toast} from 'react-toastify';
 import { bookmarksAtom,authAtom } from "../../jotai/Atoms";
 import { db } from "../../src/config/firebase.config";
 import Card from "../../components/shared/Card";
@@ -45,10 +46,11 @@ const BooksMarks = () => {
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "bookmarks", id));
     setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
+    toast.success("Article Removed");
   };
   return (
-      <div className="flex flex-col mt-52 mb-12 items-center">
-        <div className="animate-bounce text-center">
+      <div className="flex flex-col mb-12 items-center">
+        <div className="animate-bounce text-center absolute top-64">
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 2 } }}
@@ -72,7 +74,7 @@ const BooksMarks = () => {
             return (
               <div
                 key={index}
-                className="bg-white text-white flex flex-col w-3/5 p-2 m-4 rounded-xl  "
+                className="bg-white text-white flex flex-col w-3/5 p-2 m-4 rounded-xl z-0  "
               >
                 <h3 className="font-serif font-bold text-xl m-4 text-red-700">
                   {bookmark.data.link.title}

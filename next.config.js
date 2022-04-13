@@ -13,6 +13,7 @@ const nextConfig = {
       "i.insider.com","images.hindustantimes.com"
     ],
   },
+
 };
 
 module.exports = nextConfig;

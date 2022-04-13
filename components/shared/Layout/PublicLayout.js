@@ -1,23 +1,29 @@
-import React from "react";
-import Image from "next/image";
+import React, { useEffect } from "react";
 import Head from "next/head";
+import { useAtom } from "jotai";
 import Footer from "../Footer";
 import Header from "../Header";
 import { getSession } from "../../../HOC/withAuth";
 import { useRouter } from "next/router";
 import { authAtom } from "../../../jotai/Atoms";
-import { useAtom } from "jotai";
-import background from "../../../public/images/1567665.png";
+import Hero from "../Hero";
 const Layout = ({ title, description, keywords, children }) => {
   const session = getSession("user");
-  const [user] = useAtom(authAtom);
+  const [user, setUser] = useAtom(authAtom);
   const router = useRouter();
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       router.replace("/user/news", "/user/news");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [user]);
+  useEffect(() => {
+    const data = localStorage.getItem("user");
+    if (data) {
+      setUser(data);
+    }
+  });
+
   return (
     <div>
       <Head>
@@ -28,8 +34,7 @@ const Layout = ({ title, description, keywords, children }) => {
       <div className="flex flex-col h-screen justify-between">
         <Header />
         <div className=" flex flex-col text-black items-center">
-          <div className='absolute -z-10'>
-          </div>
+          <Hero />
           {children}
         </div>
         <Footer />
