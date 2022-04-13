@@ -57,7 +57,7 @@ const BooksMarks = () => {
           exit={{ opacity: 0 }}
           className="text-white font-bold text-6xl"
         >
-          {bookmarks.length === 0 ? (
+         {bookmarks &&  {bookmarks.length === 0 ? (
             <h1>NO BOOKMARKS FOUND</h1>
           ) : (
             <>
@@ -73,6 +73,7 @@ const BooksMarks = () => {
               </motion.h1>
             </>
           )}
+        }
         </motion.h1>
       </div>
       {bookmarks &&
