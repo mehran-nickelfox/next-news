@@ -3,21 +3,20 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { setSession } from "../../HOC/withAuth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { motion } from "framer-motion";
-import { authAtom, storeUserAtom } from "../../jotai/Atoms";
+import { authAtom, storeAtom } from "../../jotai/Atoms";
 import { useAtom } from "jotai";
 import { db } from "../../src/config/firebase.config";
 import googleIcon from "../../public/images/googleIcon.svg";
 import Image from "next/image";
 const OAuth = () => {
-  const [, setUser] = useAtom(authAtom);
-  const [, setSaveUser] = useAtom(storeUserAtom);
+  const [user, setUser] = useAtom(authAtom);
+  const [saveUser, setSaveUser] = useAtom(storeAtom);
   const onGoogleClick = async () => {
     try {
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
       const userRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(userRef);
       if (!docSnap.exists()) {
@@ -28,28 +27,31 @@ const OAuth = () => {
         });
       }
       setUser(true);
+      setSaveUser(user.displayName);
       setSession("user", user.uid);
-      setSaveUser(user.uid);
     } catch (err) {
       console.log(err);
     }
+
   };
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 2 } }}
-      exit={{ opacity: 0 }}
-      className="text-center text-white w-full mb-12 p-4 text-6xl font-bold"
-    >
-      <h3>Sign In Using Google:</h3>
+    <motion.div className="flex flex-col items-center justify-center">
       <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: 2 } }}
-        exit={{ opacity: 0 }}
-        className="rounded-full bg-slate-700 w-32 m-24 animate-bounce hover:bg-white transition-all ease-out duration-300 h-full"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0, y: -100 },
+          visible: { opacity: 1, y: 0, transition: { delay: 1 } },
+        }}
+        whileHover={{
+          scale: 1.1,
+          transition: { duration: 1 },
+        }}
+        whileTap={{ scale: 0.7 }}
+        className="flex flex-row items-center justify-around rounded-full bg-stone-300 w-80 h-24 m-24 hover:bg-sla00 font-bold text-zinc-600"
         onClick={onGoogleClick}
       >
-        <Image src={googleIcon} alt="Google" width={50} />
+        <Image src={googleIcon} alt="Google" width={50} /> Sign In Using Google:
       </motion.button>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -7,18 +7,19 @@ import { useRouter } from "next/router";
 import { authAtom } from "../../../jotai/Atoms";
 import { useAtom } from "jotai";
 import Hero from "../Hero";
+import { data } from "autoprefixer";
 const Layout = ({ title, description, keywords, children }) => {
   const session = getSession("user");
   const [user] = useAtom(authAtom);
   const router = useRouter();
-  React.useEffect(() => {
-    if (!user) {
-      setTimeout(() => {
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    if (!data) {
       router.replace("/auth", "/auth");
-      }, 2500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [data]);
   return (
     <div>
       <Head>

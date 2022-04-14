@@ -10,10 +10,11 @@ const nextConfig = {
       "www.reuters.com",
       "s.yimg.com",
       "www.cnet.com",
-      "i.insider.com","images.hindustantimes.com"
+      "i.insider.com",
+      "images.hindustantimes.com",
+      "cdn.arstechnica.net",
     ],
   },
-
 };
 
 module.exports = nextConfig;

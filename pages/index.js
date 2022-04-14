@@ -6,10 +6,12 @@ const Home = () => {
   const [user] = useAtom(authAtom);
   const router = useRouter();
   useEffect(() => {
+    const data = localStorage.getItem("user");
     if (!user) {
       router.replace("/auth", "/auth");
     }
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 };
 
 export default Home;

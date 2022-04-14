@@ -11,8 +11,8 @@ import {
 } from "firebase/firestore";
 import Image from "next/image";
 import { useAtom } from "jotai";
-import {toast} from 'react-toastify';
-import { bookmarksAtom,authAtom } from "../../jotai/Atoms";
+import { toast } from "react-toastify";
+import { bookmarksAtom, authAtom } from "../../jotai/Atoms";
 import { db } from "../../src/config/firebase.config";
 import Card from "../../components/shared/Card";
 import remove from "../../public/images/delete.png";
@@ -21,26 +21,26 @@ const BooksMarks = () => {
   const [bookmarks, setBookmarks] = useAtom(bookmarksAtom);
   const [user] = useAtom(authAtom);
   useEffect(() => {
-    if(user){
-    const getBookmarks = async () => {
-      const bookmarksRef = collection(db, "bookmarks");
-      const q = query(
-        bookmarksRef,
-        where("userRef", "==", auth.currentUser.uid)
-      );
-      const querySnapshot = await getDocs(q);
-      const bookmarks = [];
-      querySnapshot.forEach((doc) => {
-        return bookmarks.push({
-          id: doc.id,
-          data: doc.data(),
+    if (user) {
+      const getBookmarks = async () => {
+        const bookmarksRef = collection(db, "bookmarks");
+        const q = query(
+          bookmarksRef,
+          where("userRef", "==", auth.currentUser.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        const bookmarks = [];
+        querySnapshot.forEach((doc) => {
+          return bookmarks.push({
+            id: doc.id,
+            data: doc.data(),
+          });
         });
-      });
-      setBookmarks(bookmarks);
-    };
-  
-    getBookmarks();
-  }
+        setBookmarks(bookmarks);
+      };
+
+      getBookmarks();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleDelete = async (id) => {
@@ -49,26 +49,35 @@ const BooksMarks = () => {
     toast.success("Article Removed");
   };
   return (
-      <div className="flex flex-col mb-12 items-center">
-        <div className="animate-bounce text-center absolute top-96">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 2 } }}
-            exit={{ opacity: 0 }}
-            className="text-white font-bold text-6xl"
-          >
-            SCROLL FOR BOOKMARKS
-          </motion.h1>
-          <br />
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 2 } }}
-            exit={{ opacity: 0 }}
-            className="text-white font-bold text-6xl"
-          >
-            ▼
-          </motion.h1>
-        </div>
+    <div className="flex flex-col mb-12 items-center">
+      <div className="text-center absolute top-96">
+        <motion.h1
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+          }}
+          className="text-white font-bold text-6xl"
+        >
+          {bookmarks && bookmarks.length > 0
+            ? "SCROLL FOR BOOKMARKS"
+            : "No Bookmarks"}
+        </motion.h1>
+        <br />
+        <motion.h1
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, x: 100 },
+            visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+          }}
+          className="text-white font-bold text-6xl"
+        >
+          ▼
+        </motion.h1>
+      </div>
+      <div className="flex flex-col w-full items-center -mt-24">
         {bookmarks &&
           bookmarks.map((bookmark, index) => {
             return (
@@ -115,7 +124,8 @@ const BooksMarks = () => {
             );
           })}
       </div>
- );
+    </div>
+  );
 };
 
 export default BooksMarks;

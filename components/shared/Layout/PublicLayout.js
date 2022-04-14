@@ -12,17 +12,17 @@ const Layout = ({ title, description, keywords, children }) => {
   const [user, setUser] = useAtom(authAtom);
   const router = useRouter();
   useEffect(() => {
-    if (user) {
+    const data = JSON.parse(localStorage.getItem("user"));
+    if (data) {
       router.replace("/user/news", "/user/news");
     }
+
+    // if (user) {
+    //   router.replace("/user/news", "/user/news");
+    // }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-  useEffect(() => {
-    const data = localStorage.getItem("user");
-    if (data) {
-      setUser(data);
-    }
-  });
 
   return (
     <div>
