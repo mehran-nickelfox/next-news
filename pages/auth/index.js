@@ -18,7 +18,7 @@ const Home = () => {
           }}
           className="z-10"
         >
-          BRINGING YOU THE
+          BRINGING THE NEWS
         </motion.h1>
         <br />
         <BasicModal/>
@@ -30,7 +30,7 @@ const Home = () => {
             visible: { opacity: 1, x: 0, transition: { delay: 2 } },
           }}
         >
-          NEWS!
+          TO YOU!
         </motion.h1>
       </div>
       {!user && (
