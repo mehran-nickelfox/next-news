@@ -2,9 +2,9 @@ import React from "react";
 import { getAuth } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../src/config/firebase.config";
+import { toast } from "react-toastify";
 import marks from "../../public/images/bookmark.png";
 import Image from "next/image";
-import { toast } from "react-toastify";
 
 const Marker = (props) => {
   const { link } = props;

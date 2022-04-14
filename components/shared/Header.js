@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { toast } from "react-toastify";
@@ -18,11 +17,10 @@ const Header = () => {
   const [user, setUser] = useAtom(authAtom);
   const auth = getAuth();
   const router = useRouter();
-  const [, setSaveUser] = useAtom(storeAtom);
+  const [savedUser, setSavedUser] = useAtom(storeAtom);
   const [, setOpen] = useAtom(openAtom);
   useEffect(() => {
-    const data = localStorage.getItem("user");
-    if (data) {
+    if (savedUser) {
       setUser(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,7 +31,7 @@ const Header = () => {
     auth.signOut();
     setUser(false);
     removeSession("user");
-    setSaveUser(RESET);
+    setSavedUser(RESET);
     toast.success("Logged Out");
     router.replace("/auth", "/auth");
   };
@@ -53,11 +51,11 @@ const Header = () => {
               </p>
             </Link>
           ) : (
-            <Button onClick={handleOpen}>
+            <button onClick={handleOpen}>
               <p className="text-red-700 hover:bg-red-700 hover:text-white active:bg-red-700 active:text-white text-xl font-bold hover:p-1 hover:rounded-lg active:rounded-lg">
                 News
               </p>
-            </Button>
+            </button>
           )}
           {user ? (
             <Link href="/user/bookmarks" passHref>
@@ -66,11 +64,11 @@ const Header = () => {
               </p>
             </Link>
           ) : (
-            <Button onClick={handleOpen}>
+            <button onClick={handleOpen}>
               <p className="text-red-700 text-xl font-bold hover:bg-red-700 hover:text-white active:bg-red-700 active:text-white hover:p-1 hover:rounded-lg active:rounded-lg">
                 Bookmarks
               </p>
-            </Button>
+            </button>
           )}
           {user && (
             <motion.button

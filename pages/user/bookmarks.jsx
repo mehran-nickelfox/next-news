@@ -41,9 +41,10 @@ const BooksMarks = () => {
 
       getBookmarks();
     }
+    console.log(bookmarks);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "bookmarks", id));
     setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
@@ -57,7 +58,7 @@ const BooksMarks = () => {
           animate="visible"
           variants={{
             hidden: { opacity: 0, x: -100 },
-            visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+            visible: { opacity: 1, x: 0, transition: { delay: 1 } },
           }}
           className="text-white font-bold text-6xl"
         >
@@ -71,7 +72,7 @@ const BooksMarks = () => {
           animate="visible"
           variants={{
             hidden: { opacity: 0, x: 100 },
-            visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+            visible: { opacity: 1, x: 0, transition: { delay: 1 } },
           }}
           className="text-white font-bold text-6xl"
         >
@@ -82,9 +83,15 @@ const BooksMarks = () => {
         {bookmarks &&
           bookmarks.map((bookmark, index) => {
             return (
-              <div
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, x: -100 },
+                  visible: { opacity: 1, x: 0, transition: { delay: 1 } },
+                }}
                 key={index}
-                className="bg-white text-white flex flex-col w-3/5 p-2 m-4 rounded-xl z-0  "
+                className="bg-stone-300 text-white flex flex-col w-3/5 p-2 m-4 rounded-xl z-0"
               >
                 <h3 className="font-serif font-bold text-xl m-4 text-red-700">
                   {bookmark.data.link.title}
@@ -110,18 +117,18 @@ const BooksMarks = () => {
                     </p>
                   </div>
                   <div className="h-100 flex flex-col items-center justify-around">
-                    <button className="rounded m-4 p-0.25 bg-red-700 w-32 h-12 hover:bg-white hover:text-red-700 border-2 border-red-700 font-bold">
+                    <button className="rounded m-4 p-0.25 bg-red-700 w-32 h-12 hover:bg-stone-300 hover:text-red-700 border-2 border-red-700 font-bold">
                       <a href={bookmark.data.link.url}>Know More</a>
                     </button>
                     <button
-                      className="rounded m-4 p-0.25 bg-red-700 hover:bg-white border-2 border-red-700"
+                      className="rounded m-4 pt-1 px-1 bg-red-700 hover:bg-stone-300 border-2 border-red-700 "
                       onClick={() => handleDelete(bookmark.id)}
                     >
                       <Image src={remove} alt="delete" width={35} height={35} />
                     </button>
                   </div>
                 </Card>
-              </div>
+              </motion.div>
             );
           })}
       </div>

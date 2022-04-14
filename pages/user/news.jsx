@@ -21,7 +21,7 @@ const News = ({ data }) => {
           animate="visible"
           variants={{
             hidden: { opacity: 0, x: 100 },
-            visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+            visible: { opacity: 1, x: 0, transition: { delay: 1 } },
           }}
           className="text-white font-bold text-6xl"
         >
@@ -33,7 +33,7 @@ const News = ({ data }) => {
           animate="visible"
           variants={{
             hidden: { opacity: 0, x: -100 },
-            visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+            visible: { opacity: 1, x: 0, transition: { delay: 1 } },
           }}
           className="text-white font-bold text-6xl"
         >
@@ -48,7 +48,7 @@ const News = ({ data }) => {
             animate="visible"
             variants={{
               hidden: { opacity: 0, x: -100 },
-              visible: { opacity: 1, x: 0, transition: { delay: 1.5 } },
+              visible: { opacity: 1, x: 0, transition: { delay: 1 } },
             }}
             key={index}
             className="bg-stone-300 text-white flex flex-col w-3/5 p-2 m-4 rounded-xl z-0"

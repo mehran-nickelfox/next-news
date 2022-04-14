@@ -4,18 +4,18 @@ import Footer from "../Footer";
 import Header from "../Header";
 import { getSession } from "../../../HOC/withAuth";
 import { useRouter } from "next/router";
-import { authAtom } from "../../../jotai/Atoms";
+import { authAtom, storeAtom } from "../../../jotai/Atoms";
 import { useAtom } from "jotai";
 import Hero from "../Hero";
 import { data } from "autoprefixer";
+import AppLoader from "../Loader";
 const Layout = ({ title, description, keywords, children }) => {
-  const session = getSession("user");
   const [user] = useAtom(authAtom);
+  const [storedUser] = useAtom(storeAtom);
   const router = useRouter();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"));
-    if (!data) {
+    if (!storedUser) {
       router.replace("/auth", "/auth");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

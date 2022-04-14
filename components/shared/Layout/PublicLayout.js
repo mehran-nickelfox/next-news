@@ -3,24 +3,20 @@ import Head from "next/head";
 import { useAtom } from "jotai";
 import Footer from "../Footer";
 import Header from "../Header";
-import { getSession } from "../../../HOC/withAuth";
 import { useRouter } from "next/router";
-import { authAtom } from "../../../jotai/Atoms";
+import { authAtom, storeAtom , checkingUser} from "../../../jotai/Atoms";
 import Hero from "../Hero";
+import AppLoader from "../Loader";
 const Layout = ({ title, description, keywords, children }) => {
-  const session = getSession("user");
   const [user, setUser] = useAtom(authAtom);
+  const [storedUser] = useAtom(storeAtom);
+  const [checking] = useAtom(checkingUser);
   const router = useRouter();
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"));
-    if (data) {
+    if (storedUser) {
+      setUser(true)
       router.replace("/user/news", "/user/news");
     }
-
-    // if (user) {
-    //   router.replace("/user/news", "/user/news");
-    // }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -34,6 +30,7 @@ const Layout = ({ title, description, keywords, children }) => {
       <div className="flex flex-col h-screen justify-between">
         <Header />
         <div className=" flex flex-col text-black items-center">
+          {checking && <AppLoader/>}
           <Hero />
           {children}
         </div>

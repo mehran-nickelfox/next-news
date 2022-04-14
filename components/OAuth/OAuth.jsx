@@ -3,15 +3,17 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { setSession } from "../../HOC/withAuth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { motion } from "framer-motion";
-import { authAtom, storeAtom } from "../../jotai/Atoms";
+import { authAtom, storeAtom,checkingUser } from "../../jotai/Atoms";
 import { useAtom } from "jotai";
 import { db } from "../../src/config/firebase.config";
 import googleIcon from "../../public/images/googleIcon.svg";
 import Image from "next/image";
 const OAuth = () => {
-  const [user, setUser] = useAtom(authAtom);
-  const [saveUser, setSaveUser] = useAtom(storeAtom);
+  const [, setUser] = useAtom(authAtom);
+  const [, setSaveUser] = useAtom(storeAtom);
+  const [, setChecking] = useAtom(checkingUser);
   const onGoogleClick = async () => {
+    setChecking(true);
     try {
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
@@ -26,13 +28,15 @@ const OAuth = () => {
           createdAt: serverTimestamp(),
         });
       }
-      setUser(true);
-      setSaveUser(user.displayName);
+      
+      setSaveUser(user);
       setSession("user", user.uid);
+      setChecking(false);
+
     } catch (err) {
       console.log(err);
     }
-
+    setUser(true);
   };
   return (
     <motion.div className="flex flex-col items-center justify-center">
