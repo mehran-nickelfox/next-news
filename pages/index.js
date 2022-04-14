@@ -6,7 +6,6 @@ const Home = () => {
   const [user] = useAtom(authAtom);
   const router = useRouter();
   useEffect(() => {
-    const data = localStorage.getItem("user");
     if (!user) {
       router.replace("/auth", "/auth");
     }

@@ -53,11 +53,10 @@ const Header = () => {
               </p>
             </Link>
           ) : (
-            <Button
-              className="text-red-700 hover:bg-red-700 hover:text-white active:bg-red-700 active:text-white text-xl font-bold hover:p-1 hover:rounded-lg active:rounded-lg"
-              onClick={handleOpen}
-            >
-              <p>News</p>
+            <Button onClick={handleOpen}>
+              <p className="text-red-700 hover:bg-red-700 hover:text-white active:bg-red-700 active:text-white text-xl font-bold hover:p-1 hover:rounded-lg active:rounded-lg">
+                News
+              </p>
             </Button>
           )}
           {user ? (
@@ -67,11 +66,10 @@ const Header = () => {
               </p>
             </Link>
           ) : (
-            <Button
-              className="text-red-700 text-xl font-bold hover:bg-red-700 hover:text-white active:bg-red-700 active:text-white hover:p-1 hover:rounded-lg active:rounded-lg"
-              onClick={handleOpen}
-            >
-              <p>Bookmarks</p>
+            <Button onClick={handleOpen}>
+              <p className="text-red-700 text-xl font-bold hover:bg-red-700 hover:text-white active:bg-red-700 active:text-white hover:p-1 hover:rounded-lg active:rounded-lg">
+                Bookmarks
+              </p>
             </Button>
           )}
           {user && (

@@ -43,6 +43,7 @@ const BooksMarks = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "bookmarks", id));
     setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
