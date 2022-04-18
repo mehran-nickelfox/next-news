@@ -8,10 +8,10 @@ import ig from "../../public/images/ig.png";
 const Footer = () => {
   const [user] = useAtom(authAtom);
   return (
-    <div className="z-20">
+    <div className="z-20 ">
       <footer>
-        <div className="p-8 w-full text-zinc-600 bg-blue-300">
-          <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
+        <div className="p-8 w-full text-zinc-600 bg-slate-700 ">
+          <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4 text-white">
             <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6">
               <h5 className="text-xl font-bold mb-6">Features</h5>
               <ul className="list-none footer-links">
@@ -209,7 +209,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="sm:flex sm:flex-wrap sm:-mx-4 mt-6 pt-6 sm:mt-12 sm:pt-12 border-t">
+          <div className="sm:flex sm:flex-wrap sm:-mx-4 mt-6 pt-6 sm:mt-12 sm:pt-12 border-t text-white">
             <div className="sm:w-full px-4 md:w-1/6">
               <strong>FWR</strong>
             </div>
