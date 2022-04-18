@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <div className="z-20">
       <footer>
-        <div className="p-8 w-full text-zinc-600 bg-stone-300">
+        <div className="p-8 w-full text-zinc-600 bg-blue-300">
           <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
             <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6">
               <h5 className="text-xl font-bold mb-6">Features</h5>

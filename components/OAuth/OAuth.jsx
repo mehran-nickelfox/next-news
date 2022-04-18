@@ -52,10 +52,10 @@ const OAuth = () => {
           transition: { duration: 1 },
         }}
         whileTap={{ scale: 0.7 }}
-        className="flex flex-row items-center justify-around rounded-full bg-stone-300 w-80 h-24 m-24 hover:bg-sla00 font-bold text-zinc-600"
+        className="flex flex-row items-center justify-around rounded-full bg-blue-300 w-80 h-24 m-24 hover:bg-sla00 font-bold text-zinc-600"
         onClick={onGoogleClick}
       >
-        <Image src={googleIcon} alt="Google" width={50} /> Sign In Using Google:
+        <Image src={googleIcon} alt="Google" width={50} /> Sign In Using Google
       </motion.button>
     </motion.div>
   );

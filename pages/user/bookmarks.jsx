@@ -91,7 +91,7 @@ const BooksMarks = () => {
                   visible: { opacity: 1, x: 0, transition: { delay: 1 } },
                 }}
                 key={index}
-                className="bg-stone-300 text-white flex flex-col w-3/5 p-2 m-4 rounded-xl z-0"
+                className="bg-blue-200 text-black flex flex-col w-3/5 p-2 m-4 rounded-xl z-0"
               >
                 <h3 className="font-serif font-bold text-xl m-4 text-red-700">
                   {bookmark.data.link.title}
@@ -117,11 +117,11 @@ const BooksMarks = () => {
                     </p>
                   </div>
                   <div className="h-100 flex flex-col items-center justify-around">
-                    <button className="rounded m-4 p-0.25 bg-red-700 w-32 h-12 hover:bg-stone-300 hover:text-red-700 border-2 border-red-700 font-bold">
+                    <button className="text-white rounded m-4 p-0.25  w-32 h-12 bg-purple-700 hover:bg-purple-800  font-bold">
                       <a href={bookmark.data.link.url}>Know More</a>
                     </button>
                     <button
-                      className="rounded m-4 pt-1 px-1 bg-red-700 hover:bg-stone-300 border-2 border-red-700 "
+                      className="rounded m-4 pt-1 px-1 bg-purple-800 hover:bg-purple-900 cursor-pointer"
                       onClick={() => handleDelete(bookmark.id,bookmark.data.link.url)}
                     >
                       <Image src={remove} alt="delete" width={35} height={35} />

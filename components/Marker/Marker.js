@@ -33,12 +33,12 @@ const Marker = (props) => {
         onClick={onBookMark}
         className={
           data.some((item) => item.link.url === link.url)
-            ? "rounded m-4 pt-1 px-1 bg-stone-300 border-2 border-red-700"
-            : "rounded m-4 pt-1 px-1 bg-red-700 hover:bg-stone-300 border-2 border-red-700"
+            ? "rounded m-4 pt-1 px-1 bg-purple-700 hover:bg-purple-800 cursor-pointer"
+            : "rounded m-4 pt-1 px-1 bg-purple-700 hover:bg-purple-800 cursor-pointer"
         }
         disabled={data.some((item) => item.link.url === link.url)}
       >
-        <Image src={marks} alt="bookmark" disabled />
+        <Image src={marks} alt="bookmark"  />
       </button>
     </div>
   );
