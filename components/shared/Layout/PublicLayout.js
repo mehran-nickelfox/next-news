@@ -4,21 +4,22 @@ import { useAtom } from "jotai";
 import Footer from "../Footer";
 import Header from "../Header";
 import { useRouter } from "next/router";
-import { authAtom, storeAtom , checkingUser} from "../../../jotai/Atoms";
+import { authAtom,  checkingUser} from "../../../jotai/Atoms";
 import Hero from "../Hero";
 import AppLoader from "../Loader";
+import { getSession } from "../../../HOC/withAuth";
 const Layout = ({ title, description, keywords, children }) => {
-  const [user, setUser] = useAtom(authAtom);
-  const [storedUser] = useAtom(storeAtom);
+  const [,setUser] = useAtom(authAtom);
   const [checking] = useAtom(checkingUser);
+  const session = getSession('user-token')
   const router = useRouter();
   useEffect(() => {
-    if (storedUser) {
+    if (session) {
       setUser(true)
       router.replace("/user/news", "/user/news");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [session]);
 
   return (
     <div>

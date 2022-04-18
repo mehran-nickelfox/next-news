@@ -1,25 +1,32 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { checkingUser, userAtom } from "../../../jotai/Atoms";
+import { useAtom } from "jotai";
 import Footer from "../Footer";
 import Header from "../Header";
 import { getSession } from "../../../HOC/withAuth";
 import { useRouter } from "next/router";
-import { authAtom, storeAtom } from "../../../jotai/Atoms";
-import { useAtom } from "jotai";
 import Hero from "../Hero";
-import { data } from "autoprefixer";
-import AppLoader from "../Loader";
 const Layout = ({ title, description, keywords, children }) => {
-  const [user] = useAtom(authAtom);
-  const [storedUser] = useAtom(storeAtom);
+  const auth = getAuth();
+  const session = getSession("user-token");
+  const [checking, setChecking] = useAtom(checkingUser);
+  const [currentUser, setCurrentUser] = useAtom(userAtom);
   const router = useRouter();
 
   useEffect(() => {
-    if (!storedUser) {
+    onAuthStateChanged(auth, async (currentUSer) => {
+      if (currentUSer) {
+        setCurrentUser(currentUSer);
+      }
+    });
+
+    if (!session) {
       router.replace("/auth", "/auth");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [session, currentUser]);
   return (
     <div>
       <Head>
@@ -30,7 +37,7 @@ const Layout = ({ title, description, keywords, children }) => {
       <div className="flex flex-col h-screen justify-between">
         <Header />
         <div>
-          <div className="flex flex-col items-center">
+          <div className=" flex flex-col text-black items-center">
             <Hero />
             {children}
           </div>

@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import { toast } from "react-toastify";
 import { RESET } from "jotai/utils";
 import { getAuth } from "firebase/auth";
-import { authAtom, storeAtom, openAtom } from "../../jotai/Atoms";
+import { authAtom, storeAtom, openAtom} from "../../jotai/Atoms";
 import logo from "../../public/images/Logo.png";
 import logout from "../../public/images/signout.png";
 import { removeSession } from "../../HOC/withAuth";
@@ -30,7 +30,7 @@ const Header = () => {
   const handleClick = () => {
     auth.signOut();
     setUser(false);
-    removeSession("user");
+    removeSession("user-token");
     setSavedUser(RESET);
     toast.success("Logged Out");
     router.replace("/auth", "/auth");

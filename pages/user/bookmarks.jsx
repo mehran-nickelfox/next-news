@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { getAuth } from "firebase/auth";
 import {
@@ -12,16 +12,17 @@ import {
 import Image from "next/image";
 import { useAtom } from "jotai";
 import { toast } from "react-toastify";
-import { bookmarksAtom, authAtom } from "../../jotai/Atoms";
+import { bookmarksAtom, userAtom } from "../../jotai/Atoms";
 import { db } from "../../src/config/firebase.config";
 import Card from "../../components/shared/Card";
 import remove from "../../public/images/delete.png";
 const BooksMarks = () => {
   const auth = getAuth();
+  const [currentUser] = useAtom(userAtom);
   const [bookmarks, setBookmarks] = useAtom(bookmarksAtom);
-  const [user] = useAtom(authAtom);
+
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       const getBookmarks = async () => {
         const bookmarksRef = collection(db, "bookmarks");
         const q = query(
@@ -41,10 +42,8 @@ const BooksMarks = () => {
 
       getBookmarks();
     }
-    console.log(bookmarks);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [currentUser]);
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "bookmarks", id));
     setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
