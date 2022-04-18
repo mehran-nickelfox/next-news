@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import { useAtom } from "jotai";
 import { toast } from "react-toastify";
-import { bookmarksAtom, userAtom } from "../../jotai/Atoms";
+import { bookmarksAtom, userAtom, dataAtom } from "../../jotai/Atoms";
 import { db } from "../../src/config/firebase.config";
 import Card from "../../components/shared/Card";
 import remove from "../../public/images/delete.png";
@@ -20,7 +20,7 @@ const BooksMarks = () => {
   const auth = getAuth();
   const [currentUser] = useAtom(userAtom);
   const [bookmarks, setBookmarks] = useAtom(bookmarksAtom);
-
+  const [data, setData] = useAtom(dataAtom);
   useEffect(() => {
     if (currentUser) {
       const getBookmarks = async () => {
@@ -44,8 +44,9 @@ const BooksMarks = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,url) => {
     await deleteDoc(doc(db, "bookmarks", id));
+    setData(data.filter((item) => item.link.url !== url));
     setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
     toast.success("Article Removed");
   };
@@ -121,7 +122,7 @@ const BooksMarks = () => {
                     </button>
                     <button
                       className="rounded m-4 pt-1 px-1 bg-red-700 hover:bg-stone-300 border-2 border-red-700 "
-                      onClick={() => handleDelete(bookmark.id)}
+                      onClick={() => handleDelete(bookmark.id,bookmark.data.link.url)}
                     >
                       <Image src={remove} alt="delete" width={35} height={35} />
                     </button>
